@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { cities } from "./data/citiesData";
 import MeteoService from "./services/meteoService";
 import localStorageService from "./services/localStorageService";
@@ -24,7 +24,7 @@ function App() {
     }));
   };
 
-  useMemo(() => {
+  useEffect(() => {
     const loadAndStoreData = async () => {
       try {
         const options = {
