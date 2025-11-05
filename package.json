@@ -1,13 +1,13 @@
 {
+  "homepage": "https://kabatsyura.github.io/react-weather-forecast-app",
   "name": "tatneft",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://kabatsyura.github.io/react-weather-forecast-app",
   "scripts": {
     "dev": "vite",
     "predeploy": "tsc -b && vite build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },

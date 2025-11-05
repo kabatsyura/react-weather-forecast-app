@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cities } from "./data/citiesData";
 import MeteoService from "./services/meteoService";
 import localStorageService from "./services/localStorageService";
@@ -14,6 +14,7 @@ function App() {
     city: cities[0].name,
     range: timeRangeData[0].name,
   });
+  const [isLoaded, setLoaded] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -23,7 +24,7 @@ function App() {
     }));
   };
 
-  useEffect(() => {
+  useMemo(() => {
     const loadAndStoreData = async () => {
       try {
         const options = {
@@ -35,6 +36,7 @@ function App() {
 
         const meteoData: MeteoData[] = await MeteoService.getForecast(options);
         localStorageService.setItem("meteoData", meteoData);
+        setLoaded(true);
       } catch (error) {
         console.error("Ошибка при загрузке данных:", error);
       }
@@ -76,7 +78,7 @@ function App() {
           </Form.Select>
         </Form>
       </Row>
-      <LineGraph formData={formData} />
+      {isLoaded && <LineGraph formData={formData} />}
       <Row className="mt-3">
         <p className="text-start">Тестовое выполнил - Кабацюра Дмитрий</p>
         <p className="text-start">
